@@ -1,9 +1,13 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
+    protected $table = 'notifications';
+
     protected $fillable = ['titre', 'message', 'lu', 'user_id'];
 
     public function user()
@@ -17,6 +21,7 @@ class Notification extends Model
             'user_id' => $userId,
             'titre'   => $titre,
             'message' => $message,
+            'lu'      => false,
         ]);
     }
 }

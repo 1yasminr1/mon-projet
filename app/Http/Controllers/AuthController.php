@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -41,10 +42,7 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
-
-            if ($user->isAdmin())     return redirect()->route('admin.dashboard');
-            if ($user->isFormateur()) return redirect()->route('formateur.dashboard');
-            return redirect()->route('apprenant.dashboard');
+            return redirect()->route('home');
         }
 
         return back()->with('error', 'Mot de passe incorrect.')->withInput();
@@ -59,15 +57,15 @@ class AuthController extends Controller
     public function registerApprenant(Request $request)
     {
         $request->validate([
-            'name'                  => 'required|string|max:255',
-            'email'                 => 'required|email|unique:users',
-            'password'              => 'required|min:6|confirmed',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
         ], [
-            'name.required'         => 'Le nom est obligatoire.',
-            'email.required'        => 'L\'email est obligatoire.',
-            'email.unique'          => 'Cet email est déjà utilisé.',
-            'password.min'          => 'Le mot de passe doit avoir au moins 6 caractères.',
-            'password.confirmed'    => 'Les mots de passe ne correspondent pas.',
+            'name.required'      => 'Le nom est obligatoire.',
+            'email.required'     => 'L\'email est obligatoire.',
+            'email.unique'       => 'Cet email est déjà utilisé.',
+            'password.min'       => 'Le mot de passe doit avoir au moins 6 caractères.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ]);
 
         User::create([

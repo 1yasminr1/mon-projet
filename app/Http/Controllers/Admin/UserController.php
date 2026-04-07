@@ -43,10 +43,15 @@ class UserController extends Controller
         Notification::envoyer($user->id, $request->titre, $request->message);
         return back()->with('success', 'Notification envoyée.');
     }
-    public function formateurs()
+     public function formateurs()
 {
-    $formateurs = User::where('role', 'formateur')
-                      ->latest()->paginate(10);
+    $query = User::where('role', 'formateur')->latest();
+
+    if (request('statut')) {
+        $query->where('statut_formateur', request('statut'));
+    }
+
+    $formateurs = $query->paginate(10);
     return view('admin.users.formateurs', compact('formateurs'));
 }
 

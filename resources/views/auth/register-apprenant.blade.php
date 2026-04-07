@@ -1,77 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Inscription Apprenant - E-Learn</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Poppins', sans-serif; } </style>
+<meta charset="UTF-8">
+<title>Inscription Apprenant - E-Learn</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Poppins', sans-serif; }
+.bg-dark { background-color: rgba(10,22,40,1); }
+.btn-main { background-color: rgba(0,97,140,0.15); }
+.text-soft { color: rgba(120,190,230,0.9); }
+</style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center py-10">
 
-<div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-    <div class="text-center mb-8">
-        <div class="text-5xl mb-3">🎓</div>
-        <h1 class="text-2xl font-bold text-blue-600">Créer un compte Apprenant</h1>
-        <p class="text-gray-500 text-sm mt-1">Commencez votre apprentissage gratuitement</p>
+<body class="min-h-screen flex">
+
+<!-- PARTIE BLEUE -->
+<div class="bg-dark text-white w-[40%] min-h-screen p-12 flex flex-col justify-center">
+    
+    <div class="mb-10">
+        <div class="flex items-center gap-3 mb-6">
+            <div class="text-4xl">🎓</div>
+            <h1 class="text-2xl font-bold">LearnFlow</h1>
+        </div>
+
+        <h2 class="text-4xl font-bold leading-tight mb-4">
+            Elevate your<br>
+            intellectual<br>
+            potential.
+        </h2>
+
+        <p class="text-soft text-sm leading-relaxed max-w-sm">
+            LearnFlow est une plateforme e-learning moderne qui vous permet
+            d’apprendre à votre rythme grâce à des formations structurées,
+            interactives et accessibles partout.
+        </p>
     </div>
 
-    <form method="POST" action="/register">
-        @csrf
+</div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">Nom complet</label>
-            <input type="text" name="name" value="{{ old('name') }}" required
-                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-sm"
-                placeholder="Votre nom complet">
-            @error('name')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+<!-- PARTIE BLANCHE -->
+<div class="w-[60%] min-h-screen bg-white flex items-center justify-center">
+    <div class="w-full max-w-md">
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">Adresse Email</label>
-            <input type="email" name="email" value="{{ old('email') }}" required
-                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-sm"
-                placeholder="votre@email.com">
-            @error('email')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">Mot de passe</label>
-            <input type="password" name="password" required
-                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-sm"
-                placeholder="Minimum 6 caractères">
-            @error('password')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-6">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">Confirmer le mot de passe</label>
-            <input type="password" name="password_confirmation" required
-                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-sm"
-                placeholder="••••••••">
-        </div>
-
-        <button type="submit"
-            class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition text-sm">
-            Créer mon compte →
-        </button>
-    </form>
-
-    <div class="mt-6 text-center space-y-2">
-        <p class="text-gray-500 text-sm">
-            Déjà un compte ?
-            <a href="/login" class="text-blue-600 font-semibold hover:underline">Se connecter</a>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Créer un compte Apprenant
+        </h2>
+        <p class="text-gray-500 text-sm mb-8">
+            Commencez votre apprentissage gratuitement
         </p>
-        <p class="text-gray-500 text-sm">
-            Vous êtes formateur ?
-            <a href="/register/formateur" class="text-green-600 font-semibold hover:underline">Candidature formateur</a>
+
+        <form method="POST" action="/register" class="space-y-4">
+            @csrf
+
+            <input type="text" name="name" placeholder="Nom complet" required
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
+
+            <input type="email" name="email" placeholder="Adresse Email" required
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
+
+            <input type="password" name="password" placeholder="Mot de passe" required
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
+
+            <input type="password" name="password_confirmation"
+                placeholder="Confirmer le mot de passe" required
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
+
+            <button type="submit"
+                class="btn-main w-full py-3 rounded-lg font-semibold text-gray-800 hover:opacity-80 transition">
+                Créer mon compte
+            </button>
+        </form>
+
+        <!-- Lien connexion -->
+        <p class="mt-4 text-center text-sm text-gray-500">
+            Déjà inscrit ?
+            <a href="/login" class="font-semibold text-blue-600 hover:underline">
+                Se connecter
+            </a>
         </p>
-        <a href="/" class="text-gray-400 text-xs hover:underline block">← Retour à l'accueil</a>
+
     </div>
 </div>
 
